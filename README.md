@@ -78,7 +78,7 @@ We will also verify that the cloud-init configuration file **cloud.cfg** (/etc/c
 
 ![cloud.cfg](images/img4.png) <br /> <br />
 
-We then create an image of this VM. More info here (Step 1 and Step 2): https://docs.microsoft.com/en-us/azure/virtual-machines/linux/capture-image <br />
+We then create an image of this VM (custom image). More info here (Step 1 and Step 2): https://docs.microsoft.com/en-us/azure/virtual-machines/linux/capture-image <br />
 
 
 
