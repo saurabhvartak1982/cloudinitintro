@@ -20,11 +20,11 @@ Example: NGINX can be installed on a blank Ubuntu VM using cloud-init. <br />
 
 ## cloud-init key components:
 **Who does it:** cloud-init makes use of a bunch of systemd based services to get the job done during the boot time. The below are the systemd services and the same are run in the below mentioned sequence during different stages of boot: <br />
-	a. cloud-init-generator (Generator stage) <br />
-	b. cloud-init-local.service (Local stage) <br />
-	c. cloud-init.service (Network stage) <br />
-	d. cloud-config.service (Config stage) <br />
-	e. cloud-final.service (Final stage) <br />
+	a. **cloud-init-generator** (Generator stage) <br />
+	b. **cloud-init-local.service** (Local stage) <br />
+	c. **cloud-init.service** (Network stage) <br />
+	d. **cloud-config.service** (Config stage) <br />
+	e. **cloud-final.service** (Final stage) <br />
 More info here:  https://cloudinit.readthedocs.io/en/latest/topics/boot.html <br />
 
 
@@ -47,8 +47,8 @@ Circling back to the requirement, it is desired to accomplish the following: <br
 The requirement of my customer was that they wanted to create a Managed Image first which will have the desired bash scripts and other programs. And using this Managed Image, they wanted to create multiple VMs on which the bash scripts would run (first boot or per boot). <br /> <br />
 
 To accomplish the same, the below modules of cloud-init can be used: <br />
-1. **scripts-per-instance:** This module is run in the final stage of the boot process. This module executes the scripts which are present in the directory /var/lib/cloud/scripts/per-instance in the alphabetical order when a new VM is first booted. <br />
-2. **scripts-per-boot:** This module is run in the final stage of the boot process. This module executes the scripts which are present in the directory /var/lib/cloud/scripts/per-boot in the alphabetical order on every boot of the VM. <br />
+1. **scripts-per-instance:** This module is run in the final stage of the boot process. This module executes the scripts which are present in the directory **/var/lib/cloud/scripts/per-instance** in the alphabetical order when a new VM is first booted. <br />
+2. **scripts-per-boot:** This module is run in the final stage of the boot process. This module executes the scripts which are present in the directory **/var/lib/cloud/scripts/per-boot** in the alphabetical order on every boot of the VM. <br />
 More info here: https://cloudinit.readthedocs.io/en/latest/topics/modules.html#scripts-per-boot <br />
 
 ## PoC description and set up:
@@ -91,7 +91,7 @@ Once the new VM created from the image boots completely, we check the files **fi
 
 Now we reboot the VM from the portal. After the VM reboots, we again the files **first_boot_op.txt** and **per_boot_op.txt** in the directory **/testcloudinit**. We should see the below contents: <br /> <br />
 
-![Boot op files](images/img6) <br /> <br />
+![Boot op files](images/img6.png) <br /> <br />
 
 
 So we see that the print lines from the scripts **firstbootscript1.sh** and **firstbootscript2.sh** are appearing only once. <br /> 
