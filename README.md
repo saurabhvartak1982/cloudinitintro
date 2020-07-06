@@ -7,7 +7,7 @@ On a new Azure Ubuntu Linux VM (18.04) created from a custom image, is there a w
 The above two objectives are to be achieved using cloud-init only and the same to be showcased using a simple PoC. <br />
 
 ## Backdrop:
-The new VM should be created using a Managed Image in which the bash scripts will already be present. 
+The new VM should be created using a custom image in which the bash scripts to be run would already be present. The customer wanted to use cloud-init method only because they were also performing other bootstrapping tasks using cloud-init.
 
 ## Disclaimer:
 I am not an expert on Linux. After digging around the documentation on cloud-init, I found the below approach which I have documented. I am open for any feedback on the current approach or suggestions on an alternative approach. <br />
