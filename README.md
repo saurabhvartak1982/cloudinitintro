@@ -1,7 +1,7 @@
 # cloudinitintro
 
 ## Problem statement: <br />
-On a new Azure Ubuntu Linux VM (18.04) created from a Managed Image, is there a way in which we can do the following: <br />
+On a new Azure Ubuntu Linux VM (18.04) created from a custom image, is there a way in which we can do the following: <br />
 	1. Run user supplied bash scripts on the very first boot of the VM <br />
 	2. Run user supplied bash scripts on every boot of the VM <br />
 The above two objectives are to be achieved using cloud-init only and the same to be showcased using a simple PoC. <br />
@@ -59,20 +59,16 @@ b. Using the image created in point a., we create a new VM. And on this new VM, 
 ### Set up for step a.
 First we create a blank Ubuntu 18.04 VM on Azure. More info here: https://docs.microsoft.com/en-us/azure/virtual-machines/linux/quick-create-portal <br /> <br />
 
-Once the VM is ready, we connect to that VM. After the same is done, we create a directory **/testcloudinit** inside the VM. In this we create 2 text files by the name **first_boot_op.txt** and **per_boot_op.txt** <br /> <br />
-
-![Output files](images/img1.png) <br /> <br />
-
 After this we create the below 2 bash scripts by the name **firstbootscript1.sh** and **firstbootscript2.sh** in the directory **/var/lib/cloud/scripts/per-instance/**. Both these scripts should be made executeable using **chmod u+x** command. <br /> <br />
 
-![Firstboot scripts](images/img2.png) <br /> <br />
-The scripts will just print the lines in the file **/testcloudinit/first_boot_op.txt** whenever they are executed. <br /> <br />
+![Firstboot scripts](images/perinstance.png) <br /> <br />
+The scripts will just print the lines in the syslog at **/var/log/syslog** whenever they are executed. <br /> <br />
 
 
 Then we create the below 2 bash scripts by the name **perbootscript1.sh** and **perbootscript2.sh** in the directory **/var/lib/cloud/scripts/per-boot**. <br /> <br />
 
-![Perboot scripts](images/img3.png) <br /> <br />
-The scripts will just print the lines in the file **/testcloudinit/per_boot_op.txt** whenever they are executed. <br /> <br />
+![Perboot scripts](images/perboot.png) <br /> <br />
+The scripts will just print the lines in the syslog **/var/log/syslog** whenever they are executed. <br /> <br />
 
 We will also verify that the cloud-init configuration file **cloud.cfg** (/etc/cloud/cloud.cfg) has the modules **scripts-per-instance** and **scripts-per-boot** mentioned as below: <br /> <br />
 
@@ -85,13 +81,13 @@ We then create an image of this VM (custom image). More info here (Step 1 and St
 ### Set up for step b.
 We then create a new VM from the image created in step a. More info here (Step 3): https://docs.microsoft.com/en-us/azure/virtual-machines/linux/capture-image <br />
 
-Once the new VM created from the image boots completely, we check the files **first_boot_op.txt** and **per_boot_op.txt** in the directory **/testcloudinit**. We should see the below contents: <br /> <br />
+Once the new VM created from the image boots completely, we check the syslog **/var/log/syslog**. We should see the below contents: <br /> <br />
 
-![Boot op files](images/img5.png) <br /> <br />
+![Boot op files](images/firstboot.png) <br /> <br />
 
-Now we reboot the VM from the portal. After the VM reboots, we again the files **first_boot_op.txt** and **per_boot_op.txt** in the directory **/testcloudinit**. We should see the below contents: <br /> <br />
+Now we reboot the VM from the portal. After the VM reboots, we again check the syslog **/var/log/syslog**. We should see the below contents: <br /> <br />
 
-![Boot op files](images/img6.png) <br /> <br />
+![Boot op files](images/secondboot.png) <br /> <br />
 
 
 So we see that the print lines from the scripts **firstbootscript1.sh** and **firstbootscript2.sh** are appearing only once. <br /> 
