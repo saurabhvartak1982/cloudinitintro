@@ -105,3 +105,7 @@ Now we reboot the VM from the portal. After the VM reboots, we again check the s
 So we see that the print lines from the scripts **firstbootscript1.sh** and **firstbootscript2.sh** are appearing only once. <br /> 
 However, the lines from the scripts **perbootscript1.sh** and **perbootscript2.sh** are getting printed twice. <br /> 
 This proves that the scripts in the directory **/var/lib/cloud/scripts/per-instance** are getting executed only during the first boot while those in **/var/lib/cloud/scripts/per-boot** are getting executed on every boot. <br /> <br />
+
+
+## Acknowledgements:
+Special thanks to Toni Willberg (https://github.com/toniwillberg) for his continued guidance and support throughout the PoC and the making of this write-up. 
