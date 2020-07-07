@@ -59,15 +59,27 @@ b. Using the image created in point a., we create a new VM. And on this new VM, 
 ### Set up for step a.
 First we create a blank Ubuntu 18.04 VM on Azure. More info here: https://docs.microsoft.com/en-us/azure/virtual-machines/linux/quick-create-portal <br /> <br />
 
-After this we create the below 2 bash scripts by the name **firstbootscript1.sh** and **firstbootscript2.sh** in the directory **/var/lib/cloud/scripts/per-instance/**. Both these scripts should be made executeable using **chmod u+x** command. <br /> <br />
+After this we create the below 2 bash scripts by the name **firstbootscript1.sh** and **firstbootscript2.sh** in the directory **/var/lib/cloud/scripts/per-instance/**. Both these scripts should be made executeable using **chmod u+x** command. Contents of **firstbootscript1.sh** and **firstbootscript2.sh** should be as follows: <br /> <br />
 
-![Firstboot scripts](images/perinstance.png) <br /> <br />
+![Firstbootscript1](images/firstbootscript1.png) <br /> <br />
+
+![Firstbootscript2](images/firstbootscript2.png) <br /> <br />
+
+The contents of the directory **/var/lib/cloud/scripts/per-instance/** should look like below: <br /> <br />
+
+![Firstboot scripts](images/perinstance2.png) <br /> <br />
 The scripts will just print the lines in the syslog at **/var/log/syslog** whenever they are executed. <br /> <br />
 
 
-Then we create the below 2 bash scripts by the name **perbootscript1.sh** and **perbootscript2.sh** in the directory **/var/lib/cloud/scripts/per-boot**. <br /> <br />
+Then we create the below 2 bash scripts by the name **perbootscript1.sh** and **perbootscript2.sh** in the directory **/var/lib/cloud/scripts/per-boot**. Contents of **perbootscript1.sh** and **perbootscript2.sh** should be as follows: <br /> <br />
 
-![Perboot scripts](images/perboot.png) <br /> <br />
+![Perboot scripts](images/perbootscript1.png) <br /> <br />
+
+![Perboot scripts](images/perbootscript2.png) <br /> <br />
+
+The contents of the directory the directory **/var/lib/cloud/scripts/per-boot** should look like below: <br /> <br />
+
+![Perboot scripts](images/perboot2.png) <br /> <br />
 The scripts will just print the lines in the syslog **/var/log/syslog** whenever they are executed. <br /> <br />
 
 We will also verify that the cloud-init configuration file **cloud.cfg** (/etc/cloud/cloud.cfg) has the modules **scripts-per-instance** and **scripts-per-boot** mentioned as below: <br /> <br />
@@ -83,11 +95,11 @@ We then create a new VM from the image created in step a. More info here (Step 3
 
 Once the new VM created from the image boots completely, we check the syslog **/var/log/syslog**. We should see the below contents: <br /> <br />
 
-![Boot op files](images/firstboot.png) <br /> <br />
+![Boot op files](images/firstboot2.png) <br /> <br />
 
 Now we reboot the VM from the portal. After the VM reboots, we again check the syslog **/var/log/syslog**. We should see the below contents: <br /> <br />
 
-![Boot op files](images/secondboot.png) <br /> <br />
+![Boot op files](images/secondboot2.png) <br /> <br />
 
 
 So we see that the print lines from the scripts **firstbootscript1.sh** and **firstbootscript2.sh** are appearing only once. <br /> 
