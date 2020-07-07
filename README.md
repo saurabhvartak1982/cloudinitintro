@@ -86,7 +86,7 @@ We will also verify that the cloud-init configuration file **cloud.cfg** (/etc/c
 
 ![cloud.cfg](images/img4.png) <br /> <br />
 
-We then create an image of this VM (custom image). More info here (Step 1 and Step 2): https://docs.microsoft.com/en-us/azure/virtual-machines/linux/capture-image <br />
+We then create an image of this VM (custom image). More info here (Step 1 and Step 2): https://docs.microsoft.com/en-us/azure/virtual-machines/linux/capture-image . The customer had many other pre-installed modules because of which the option of using custom image was chosen. <br /> If the option of custom image to have the scripts in the **per-boot** and **per-instance** is not desired, another possible option can be to make use of the cloud-init module **write_files** can be used to have the desired scripts placed in the **per-boot** and **per-instance** directories - https://cloudinit.readthedocs.io/en/latest/topics/examples.html#writing-out-arbitrary-files . I have not tried this for this use-case as of yet. <br />
 
 
 
@@ -108,4 +108,4 @@ This proves that the scripts in the directory **/var/lib/cloud/scripts/per-insta
 
 
 ## Acknowledgements:
-Special thanks to Toni Willberg (https://github.com/toniwillberg) for his continued guidance and support throughout the PoC and the making of this write-up. 
+Special thanks to **Toni Willberg** (https://github.com/toniwillberg) for his continued guidance and support throughout the PoC and the making of this write-up. 
